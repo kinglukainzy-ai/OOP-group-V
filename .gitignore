@@ -1,0 +1,8 @@
+# .gitignore contents
+*.class
+/bin/
+/out/
+.idea/
+*.iml
+.vscode/
+.DS_Store

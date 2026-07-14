@@ -1,6 +1,9 @@
 # Project Design Document: Library Management System (LMS)
 ## Object-Oriented Analysis, Design & Programming Blueprint
 
+## Contributing
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for team roles, the git workflow, and branch rules.
+
 ---
 
 ## 1. Project Overview & Objectives

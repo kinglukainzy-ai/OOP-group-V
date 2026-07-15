@@ -21,20 +21,22 @@ public class BorrowTransactionServiceImpl implements BorrowTransactionService {
 
     @Override
     public BorrowTransaction returnBook(String transactionId) {
-        // Option B workaround if Library.returnBook is void
-        libraryData.getLibrary().returnBook(transactionId);
+        libraryData.getLibrary().returnBook(transactionId); 
+        // Invariant: Library.returnBook() throws if ID doesn't exist,
+        // so this lookup should always succeed. Null here is not a normal case.
         return libraryData.getLibrary().getTransactions()
-                .stream()
-                .filter(t -> t.getTransactionId().equals(transactionId))
-                .findFirst()
-                .orElse(null);
+            .stream()
+            .filter(t -> t.getTransactionId().equals(transactionId))
+            .findFirst()
+            .orElse(null); // TODO: simplify if Library.returnBook returns BorrowTransaction directly
     }
+
 
     @Override
     public List<BorrowTransaction> getActiveTransactions(String memberId) {
         return libraryData.getLibrary().getTransactions()
-                .stream()
-                .filter(t -> t.getMember().getMemberId().equals(memberId) && t.getReturnDate() == null)
-                .collect(Collectors.toList());
+            .stream()
+            .filter(t -> t.getMember().getMemberId().equals(memberId) && t.getReturnDate() == null)
+            .collect(Collectors.toList());
     }
 }

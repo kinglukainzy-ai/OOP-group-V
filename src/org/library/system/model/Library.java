@@ -1,6 +1,7 @@
 package org.library.system.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -131,15 +132,48 @@ public class Library {
         }
     }
 
+    /**
+     * Returns a read-only view of the book catalog.
+     * Use addBook() / removeBook() to modify it.
+     */
     public List<Book> getBooks() {
-        return books;
+        return Collections.unmodifiableList(books);
     }
 
+    /**
+     * Returns a read-only view of the member list.
+     * Use registerMember() to modify it.
+     */
     public List<Member> getMembers() {
-        return members;
+        return Collections.unmodifiableList(members);
     }
 
+    /**
+     * Returns a read-only view of all borrow transactions.
+     * Use borrowBook() / returnBook() to modify it.
+     */
     public List<BorrowTransaction> getTransactions() {
-        return transactions;
+        return Collections.unmodifiableList(transactions);
+    }
+
+    // -------------------------------------------------------------------------
+    // Load methods — called ONLY by LibraryData during file loading.
+    // These bypass addBook/registerMember validation intentionally, because the
+    // data being loaded was already validated when it was first saved.
+    // -------------------------------------------------------------------------
+
+    public void loadBooks(List<Book> loadedBooks) {
+        books.clear();
+        books.addAll(loadedBooks);
+    }
+
+    public void loadMembers(List<Member> loadedMembers) {
+        members.clear();
+        members.addAll(loadedMembers);
+    }
+
+    public void loadTransactions(List<BorrowTransaction> loadedTransactions) {
+        transactions.clear();
+        transactions.addAll(loadedTransactions);
     }
 }

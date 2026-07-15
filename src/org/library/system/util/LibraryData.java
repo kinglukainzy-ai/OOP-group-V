@@ -1,5 +1,6 @@
 package org.library.system.util;
 
+import java.io.File;
 import java.util.List;
 import org.library.system.model.Library;
 import org.library.system.model.Book;
@@ -11,9 +12,13 @@ import org.library.system.model.BorrowTransaction;
  * Holds the single library instance used across service logic classes.
  */
 public class LibraryData {
-    private static final String BOOKS_FILE = "data/books.csv";
-    private static final String MEMBERS_FILE = "data/members.csv";
-    private static final String TRANSACTIONS_FILE = "data/transactions.csv";
+    // Resolve paths relative to the directory the program is launched from,
+    // not relative to wherever the JVM happens to be. This avoids "file not
+    // found" surprises when launching from an IDE vs. the command line.
+    private static final String DATA_DIR       = System.getProperty("user.dir") + File.separator + "data";
+    private static final String BOOKS_FILE       = DATA_DIR + File.separator + "books.csv";
+    private static final String MEMBERS_FILE     = DATA_DIR + File.separator + "members.csv";
+    private static final String TRANSACTIONS_FILE = DATA_DIR + File.separator + "transactions.csv";
 
     private final Library libraryInstance;
 
@@ -30,23 +35,19 @@ public class LibraryData {
      */
     public void loadDataFromFiles() {
         System.out.println("Loading library data from files...");
-        
-        // 1. Load books
+
+        // Use load*() methods — NOT getBooks().clear()/addAll() — because
+        // the public getters now return unmodifiable views.
         List<Book> loadedBooks = FileIOHelper.readBooks(BOOKS_FILE);
-        libraryInstance.getBooks().clear();
-        libraryInstance.getBooks().addAll(loadedBooks);
+        libraryInstance.loadBooks(loadedBooks);
         System.out.println("Loaded " + loadedBooks.size() + " books.");
 
-        // 2. Load members
         List<Member> loadedMembers = FileIOHelper.readMembers(MEMBERS_FILE);
-        libraryInstance.getMembers().clear();
-        libraryInstance.getMembers().addAll(loadedMembers);
+        libraryInstance.loadMembers(loadedMembers);
         System.out.println("Loaded " + loadedMembers.size() + " members.");
 
-        // 3. Load transactions
         List<BorrowTransaction> loadedTx = FileIOHelper.readTransactions(TRANSACTIONS_FILE, loadedBooks, loadedMembers);
-        libraryInstance.getTransactions().clear();
-        libraryInstance.getTransactions().addAll(loadedTx);
+        libraryInstance.loadTransactions(loadedTx);
         System.out.println("Loaded " + loadedTx.size() + " borrow transactions.");
     }
 

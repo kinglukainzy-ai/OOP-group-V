@@ -9,21 +9,19 @@ public class PhysicalBook extends Book {
     private final int totalCopies;
     private int availableCopies;
 
+    /**
+     * Creates a PhysicalBook where all copies start as available.
+     * Delegates to the full constructor.
+     */
     public PhysicalBook(String bookId, String title, String author, String publisher, 
                         String shelfLocation, int totalCopies) {
-        super(bookId, title, author, publisher);
-        if (shelfLocation == null || shelfLocation.trim().isEmpty()) {
-            throw new IllegalArgumentException("Shelf location cannot be empty.");
-        }
-        if (totalCopies <= 0) {
-            throw new IllegalArgumentException("Total copies must be greater than zero.");
-        }
-        this.shelfLocation = shelfLocation.trim();
-        this.totalCopies = totalCopies;
-        this.availableCopies = totalCopies;
+        this(bookId, title, author, publisher, shelfLocation, totalCopies, totalCopies);
     }
 
-    // Special constructor allowing manual loading of available copies (e.g. from file)
+    /**
+     * Creates a PhysicalBook with a specific available-copy count.
+     * Used when loading saved data from file, where copies may already be borrowed.
+     */
     public PhysicalBook(String bookId, String title, String author, String publisher, 
                         String shelfLocation, int totalCopies, int availableCopies) {
         super(bookId, title, author, publisher);

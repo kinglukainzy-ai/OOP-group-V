@@ -14,7 +14,7 @@ This document defines how the `BorrowTransactionService` and `BorrowTransactionS
 
 **Notes for teammates:**
 - `BorrowTransaction` must be fully implemented in `org.library.system.model`.
-- `Library.borrowBook` and `Library.returnBook` must align with these signatures. Ideally, `Library.returnBook` should return the updated `BorrowTransaction`. Whoever is taking care of the Library should should update the BorrowTransactionServiceImpl by removing the lookup and the null line in the returnBook method call hence shinking it to;
+- `Library.borrowBook` and `Library.returnBook` must align with these signatures. Ideally, `Library.returnBook` should return the updated `BorrowTransaction`. Whoever is taking care of the Library should update the BorrowTransactionServiceImpl by removing the lookup and the null line in the returnBook method call hence shrinking it to;
 
 @Override
 public BorrowTransaction returnBook(String transactionId) {

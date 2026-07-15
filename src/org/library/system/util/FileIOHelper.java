@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.library.system.model.Book;
 import org.library.system.model.PhysicalBook;
 import org.library.system.model.EBook;
@@ -89,8 +90,11 @@ public class FileIOHelper {
                     } else {
                         System.err.println("Skipping unknown book type: " + type);
                     }
-                } catch (NumberFormatException e) {
-                    System.err.println("Skipping malformed book row (bad number): " + line + " — " + e.getMessage());
+                } catch (NumberFormatException | IllegalArgumentException e) {
+                    // NumberFormatException  — bad integer/double in copies or file size fields
+                    // IllegalArgumentException — model constructor rejected a value (e.g. empty
+                    //                            shelfLocation, availableCopies out of range)
+                    System.err.println("Skipping malformed book row: " + line + " — " + e.getMessage());
                 }
             }
         } catch (IOException e) {
@@ -118,7 +122,7 @@ public class FileIOHelper {
                     writer.write(String.join(DELIMITER,
                             "EBOOK", e.getBookId(), e.getTitle(), e.getAuthor(), e.getPublisher(),
                             e.getFileFormat(),
-                            String.format("%.2f", e.getFileSizeMb()),
+                            String.format(Locale.US, "%.2f", e.getFileSizeMb()),  // Locale.US: always dot decimal
                             e.getDownloadUrl()));
                 }
                 writer.newLine();
@@ -251,8 +255,11 @@ public class FileIOHelper {
 
                     transactions.add(new BorrowTransaction(txId, matchedBook, matchedMember,
                                                             borrowDate, dueDate, returnDate));
-                } catch (java.time.format.DateTimeParseException e) {
-                    System.err.println("Skipping malformed transaction row (bad date): " + line + " — " + e.getMessage());
+                } catch (java.time.format.DateTimeParseException | IllegalArgumentException e) {
+                    // DateTimeParseException  — bad date string in borrow/due/return fields
+                    // IllegalArgumentException — BorrowTransaction constructor rejected a value
+                    //                            (e.g. blank transactionId, null book/member)
+                    System.err.println("Skipping malformed transaction row: " + line + " — " + e.getMessage());
                 }
             }
         } catch (IOException e) {

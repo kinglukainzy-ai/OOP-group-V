@@ -90,7 +90,7 @@ public class FileIOHelper {
                     } else {
                         System.err.println("Skipping unknown book type: " + type);
                     }
-                } catch (NumberFormatException | IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
                     // NumberFormatException  — bad integer/double in copies or file size fields
                     // IllegalArgumentException — model constructor rejected a value (e.g. empty
                     //                            shelfLocation, availableCopies out of range)

@@ -22,6 +22,16 @@
 |---|---|
 | Prodigalson | `MainFrame.java`, `BookPanel.java`, `BorrowTransactionPanel.java` |
 
+### Additional Files Taken On by Prodigalson
+These weren't originally assigned to anyone in the team split above. Prodigalson wrote them out of necessity while building the `ui/` layer, since the app couldn't be wired together without them.
+
+| File | Why it was needed |
+|---|---|
+| `util/ServiceRegistry.java` | No one owned the util class the GUI needs to reach service instances (referenced in README §10, never assigned). |
+| `LMSApplication.java` | App entry point referenced in README §10 as the place `ServiceRegistry.initialize()` gets called — didn't exist anywhere in the repo. |
+
+> Note: these touch shared/unassigned ground, not another member's owned file. If your assigned file needs a method that doesn't exist yet (e.g. `BookService` is missing an `updateBook()`), don't silently add it to someone else's file — open a separate PR, tag the file's owner as reviewer, and flag it in the group chat.
+
 ---
 
 ## Build Order

@@ -7,7 +7,8 @@ import java.awt.*;
  * Main application window. Hosts the BookPanel and BorrowTransactionPanel
  * as tabs, and acts as the single top-level frame for the LMS desktop app.
  */
-public class MainFrame extends JFrame {
+public class 
+MainFrame extends JFrame {
 
     public MainFrame() {
         setTitle("Library Management System");

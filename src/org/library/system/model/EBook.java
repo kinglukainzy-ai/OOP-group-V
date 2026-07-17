@@ -1,45 +1,56 @@
 package org.library.system.model;
 
-/**
- * Concrete class representing an digital book (EBook).
- * Demonstrates inheritance and overrides getBorrowDurationDays() to return 21 days (polymorphism).
- */
 public class EBook extends Book {
-    private final String fileFormat;
-    private final double fileSizeMb;
-    private final String downloadUrl;
+    private String fileFormat;
+    private double fileSizeMb;
+    private String downloadUrl;
 
-    public EBook(String bookId, String title, String author, String publisher, 
-                 String fileFormat, double fileSizeMb, String downloadUrl) {
+    // Constructor with validation
+    public EBook(String bookId, String title, String author, String publisher, String fileFormat, double fileSizeMb, String downloadUrl) {
         super(bookId, title, author, publisher);
-        if (fileFormat == null || fileFormat.trim().isEmpty()) {
-            throw new IllegalArgumentException("File format cannot be empty.");
-        }
+        
+        validateInput(fileFormat, "File format cannot be null or empty.");
+        validateInput(downloadUrl, "Download URL cannot be null or empty.");
         if (fileSizeMb <= 0) {
-            throw new IllegalArgumentException("File size must be positive.");
+            throw new IllegalArgumentException("File size must be greater than 0 MB.");
         }
-        if (downloadUrl == null || downloadUrl.trim().isEmpty()) {
-            throw new IllegalArgumentException("Download URL cannot be empty.");
-        }
-        this.fileFormat = fileFormat.trim();
+        
+        this.fileFormat = fileFormat;
         this.fileSizeMb = fileSizeMb;
-        this.downloadUrl = downloadUrl.trim();
+        this.downloadUrl = downloadUrl;
     }
 
-    public String getFileFormat() {
-        return fileFormat;
+    // Input Validation Helper Method
+    private void validateInput(String value, String errorMessage) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
-    public double getFileSizeMb() {
-        return fileSizeMb;
-    }
-
-    public String getDownloadUrl() {
-        return downloadUrl;
-    }
-
+    // Polymorphism: 21-day borrow period for digital books
     @Override
     public int getBorrowDurationDays() {
-        return 21; // Digital eBooks are loaned for 3 weeks
+        return 21;
+    }
+
+    // Getters and Setters with Validation
+    public String getFileFormat() { return fileFormat; }
+    public void setFileFormat(String fileFormat) { 
+        validateInput(fileFormat, "File format cannot be null or empty.");
+        this.fileFormat = fileFormat; 
+    }
+
+    public double getFileSizeMb() { return fileSizeMb; }
+    public void setFileSizeMb(double fileSizeMb) { 
+        if (fileSizeMb <= 0) {
+            throw new IllegalArgumentException("File size must be greater than 0 MB.");
+        }
+        this.fileSizeMb = fileSizeMb; 
+    }
+
+    public String getDownloadUrl() { return downloadUrl; }
+    public void setDownloadUrl(String downloadUrl) { 
+        validateInput(downloadUrl, "Download URL cannot be null or empty.");
+        this.downloadUrl = downloadUrl; 
     }
 }

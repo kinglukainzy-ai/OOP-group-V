@@ -1,58 +1,72 @@
 package org.library.system.model;
 
-/**
- * Class representing a library member.
- * Demonstrates basic encapsulation.
- */
 public class Member {
-    private final String memberId;
-    private final String name;
-    private final String email;
+    private String memberId;
+    private String name;
+    private String email;
     private boolean isSuspended;
 
+    // 3-Argument Constructor (For registering a brand new member)
     public Member(String memberId, String name, String email) {
-        if (memberId == null || memberId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Member ID cannot be empty.");
-        }
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty.");
-        }
-        if (email == null || email.trim().isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be empty.");
-        }
-        this.memberId = memberId.trim();
-        this.name = name.trim();
-        this.email = email.trim();
-        this.isSuspended = false;
+        validateInput(memberId, "Member ID cannot be null or empty.");
+        validateInput(name, "Name cannot be null or empty.");
+        validateInput(email, "Email cannot be null or empty.");
+        
+        this.memberId = memberId;
+        this.name = name;
+        this.email = email;
+        this.isSuspended = false; 
     }
 
+    // 4-Argument Constructor (Required by FileIOHelper to load CSV data)
     public Member(String memberId, String name, String email, boolean isSuspended) {
-        this(memberId, name, email);
+        validateInput(memberId, "Member ID cannot be null or empty.");
+        validateInput(name, "Name cannot be null or empty.");
+        validateInput(email, "Email cannot be null or empty.");
+        
+        this.memberId = memberId;
+        this.name = name;
+        this.email = email;
         this.isSuspended = isSuspended;
     }
 
-    public String getMemberId() {
-        return memberId;
+    // Input Validation Helper Method
+    private void validateInput(String value, String errorMessage) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
-    public String getName() {
-        return name;
+    // Getters and Setters with Validation
+    public String getMemberId() { return memberId; }
+    public void setMemberId(String memberId) { 
+        validateInput(memberId, "Member ID cannot be null or empty.");
+        this.memberId = memberId; 
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() { return name; }
+    public void setName(String name) { 
+        validateInput(name, "Name cannot be null or empty.");
+        this.name = name; 
     }
 
-    public boolean isSuspended() {
-        return isSuspended;
+    public String getEmail() { return email; }
+    public void setEmail(String email) { 
+        validateInput(email, "Email cannot be null or empty.");
+        this.email = email; 
     }
 
-    public void setSuspended(boolean suspended) {
-        this.isSuspended = suspended;
-    }
+    public boolean isSuspended() { return isSuspended; }
+    public void setSuspensionStatus(boolean isSuspended) { this.isSuspended = isSuspended; }
 
+    // Restored toString() Method
     @Override
     public String toString() {
-        return String.format("%s (ID: %s)%s", name, memberId, isSuspended ? " [SUSPENDED]" : "");
+        return "Member{" +
+                "memberId='" + memberId + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", isSuspended=" + isSuspended +
+                '}';
     }
 }

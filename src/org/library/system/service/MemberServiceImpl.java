@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = getMemberById(memberId);
 
         if (member != null) {
-            member.setSuspended(status);
+            member.setSuspensionStatus(status);
         }
     }
 }

@@ -1,12 +1,11 @@
 # Contributing & Team Roles — OOP-group-V (Library Management System)
 
-## Team Roster & Status
+## Team Roster
 
 | Name | Username | Role/Team | Branch | Status |
 |---|---|---|---|---|
 | Benjamin Siatey | benjaminsiatey | Architecture — `Book.java`, `PhysicalBook.java` | `feat-benjamin` | ⚠️ Attempted — branch exists but incompatible with current model design, never merged |
 | Bernice Boadi Kodua | Bernice5307 | Architecture — `EBook.java`, `Member.java` | `feat-Bernice5307-model` | ✅ Done — merged |
-| Solomon Adjinayie | biggystepizzy1z | Architecture — `BorrowTransaction.java`, `Library.java` | `biggystepizzy` | 🔴 Unparticipating — zero commits |
 | Michael Darko Duodu | duodumichael73-art | Backend — `BookService.java`, `BookServiceImpl.java` | `feature/book-service` | ✅ Done — merged |
 | Newton Mensah Holy | Femi099-source | Backend — `MemberService.java`, `MemberServiceImpl.java` | `Femi099-source-patch-1` | ✅ Done — merged |
 | Dennis Ephraim Seblanu | SedKing | Backend — `BorrowTransactionService.java`, `BorrowTransactionServiceImpl.java` | `feat-SedKing-BorrowTransactionService` | ✅ Done — merged |
@@ -14,6 +13,12 @@
 | (you) | Prodigalson | Frontend — `MainFrame.java`, `BookPanel.java`, `BorrowTransactionPanel.java` | `feat-prodigalson-ui` | ✅ Done — merged, plus additional unassigned files (see below) |
 
 > Note on `Book.java`/`PhysicalBook.java` and `BorrowTransaction.java`/`Library.java`: these files exist and work on `main`, but were written by Prodigalson to keep the app buildable — not by the originally assigned owners. Flagged here for transparency, not to reassign credit.
+
+## Unparticipating Members
+
+| Name | Username | Assigned Role | Status |
+|---|---|---|---|
+| Solomon Adjinayie | biggystepizzy1z | Architecture — `BorrowTransaction.java`, `Library.java` | 🔴 Zero commits, no branch activity |
 
 ---
 

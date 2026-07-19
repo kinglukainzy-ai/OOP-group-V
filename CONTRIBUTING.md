@@ -1,36 +1,31 @@
 # Contributing & Team Roles — OOP-group-V (Library Management System)
 
-## Team Split
+## Team Roster & Status
 
-### Architecture Team (`model/`) — 6 files
-| Member | Files |
-|---|---|
-| benjaminsiatey | `Book.java`, `PhysicalBook.java` |
-| Bernice5307 | `EBook.java`, `Member.java` |
-| biggystepizzy1z | `BorrowTransaction.java`, `Library.java` |
+| Name | Username | Role/Team | Branch | Status |
+|---|---|---|---|---|
+| Benjamin Siatey | benjaminsiatey | Architecture — `Book.java`, `PhysicalBook.java` | `feat-benjamin` | ⚠️ Attempted — branch exists but incompatible with current model design, never merged |
+| Bernice Boadi Kodua | Bernice5307 | Architecture — `EBook.java`, `Member.java` | `feat-Bernice5307-model` | ✅ Done — merged |
+| Solomon Adjinayie | biggystepizzy1z | Architecture — `BorrowTransaction.java`, `Library.java` | `biggystepizzy` | 🔴 Unparticipating — zero commits |
+| Michael Darko Duodu | duodumichael73-art | Backend — `BookService.java`, `BookServiceImpl.java` | `feature/book-service` | ✅ Done — merged |
+| Newton Mensah Holy | Femi099-source | Backend — `MemberService.java`, `MemberServiceImpl.java` | `Femi099-source-patch-1` | ✅ Done — merged |
+| Dennis Ephraim Seblanu | SedKing | Backend — `BorrowTransactionService.java`, `BorrowTransactionServiceImpl.java` | `feat-SedKing-BorrowTransactionService` | ✅ Done — merged |
+| Terrence Ansa-Sasraku | sysfade | Backend — `LibraryData.java`, `FileIOHelper.java` | `TERRENCE_ANSA_UML` | ✅ Done — merged |
+| (you) | Prodigalson | Frontend — `MainFrame.java`, `BookPanel.java`, `BorrowTransactionPanel.java` | `feat-prodigalson-ui` | ✅ Done — merged, plus additional unassigned files (see below) |
 
-### Backend Team (`service/` + `util/`) — 8 files
-| Member | Files |
-|---|---|
-| duodumichael73-art | `BookService.java`, `BookServiceImpl.java` |
-| Femi099-source | `MemberService.java`, `MemberServiceImpl.java` |
-| SedKing | `BorrowTransactionService.java`, `BorrowTransactionServiceImpl.java` |
-| sysfade | `LibraryData.java`, `FileIOHelper.java` |
+> Note on `Book.java`/`PhysicalBook.java` and `BorrowTransaction.java`/`Library.java`: these files exist and work on `main`, but were written by Prodigalson to keep the app buildable — not by the originally assigned owners. Flagged here for transparency, not to reassign credit.
 
-### Frontend Team (`ui/`) — 3 files
-| Member | Files |
-|---|---|
-| Prodigalson | `MainFrame.java`, `BookPanel.java`, `BorrowTransactionPanel.java` |
+---
 
 ### Additional Files Taken On by Prodigalson
-These weren't originally assigned to anyone in the team split above. Prodigalson wrote them out of necessity while building the `ui/` layer, since the app couldn't be wired together without them.
+Not originally assigned to anyone. Written out of necessity while building the `ui/` layer, since the app couldn't be wired together without them.
 
 | File | Why it was needed |
 |---|---|
 | `util/ServiceRegistry.java` | No one owned the util class the GUI needs to reach service instances (referenced in README §10, never assigned). |
-| `LMSApplication.java` | App entry point referenced in README §10 as the place `ServiceRegistry.initialize()` gets called — didn't exist anywhere in the repo. |
+| `LMSApplication.java` | App entry point referenced in README §10 — didn't exist anywhere in the repo. |
 
-> Note: these touch shared/unassigned ground, not another member's owned file. If your assigned file needs a method that doesn't exist yet (e.g. `BookService` is missing an `updateBook()`), don't silently add it to someone else's file — open a separate PR, tag the file's owner as reviewer, and flag it in the group chat.
+> If your assigned file needs a method that doesn't exist yet (e.g. `BookService` missing an `updateBook()`), don't silently add it to someone else's file — open a separate PR, tag the owner as reviewer, and flag it in the group chat.
 
 ---
 
@@ -40,26 +35,16 @@ These weren't originally assigned to anyone in the team split above. Prodigalson
 2. **Backend team** builds against merged `model/` classes.
 3. **Frontend team** builds against merged `service/` interfaces.
 
-Branching before the layer you depend on is merged will cause avoidable conflicts.
+Branching before the layer you depend on is merged causes avoidable conflicts.
 
 ---
 
 ## Git Workflow
 
-1. Create a branch for your task:
-```bash
-   git checkout -b feat-<yourname>-<package>
-```
+1. Create a branch: `git checkout -b feat-<yourname>-<package>`
 2. Write your file(s).
-3. Stage and commit:
-```bash
-   git add .
-   git commit -m "Implement <ClassName>"
-```
-4. Push your branch:
-```bash
-   git push origin feat-<yourname>-<package>
-```
+3. Stage and commit: `git add . && git commit -m "Implement <ClassName>"`
+4. Push: `git push origin feat-<yourname>-<package>`
 5. Open a Pull Request into `main`.
 6. Wait for review and approval — **at least one other team member must approve** before merge.
 
@@ -68,6 +53,6 @@ Branching before the layer you depend on is merged will cause avoidable conflict
 ## Branch Rules
 
 - Never commit directly to `main`.
-- One feature branch per task — keep branches small and focused.
+- One feature branch per task.
 - PR required, 1 approval minimum.
 - Only **Prodigalson** (repo admin) can merge into `main`.
